@@ -21,8 +21,7 @@ namespace comandaXpress_api_net.Controllers
 
         }
 
-        [HttpGet]
-        [Route("mesas")]
+        [HttpGet("mesas")]
         public IActionResult GetMesas()
         {
             IEnumerable<Mesa> mesas = new List<Mesa>();
@@ -43,8 +42,7 @@ namespace comandaXpress_api_net.Controllers
         }
 
 
-        [HttpPost]
-        [Route("agregar")]
+        [HttpPost("agregar")]
         public IActionResult AddMesa()
         {
             int filasAfectadas = _IAccesoDatos.Query("INSERT INTO MESAS (estado) VALUES ('vacia')");
