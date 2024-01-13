@@ -1,5 +1,6 @@
 ﻿using comandaXpress_api_net.Models;
 using Dapper;
+using Microsoft.Win32;
 using MySql.Data.MySqlClient;
 using System.Configuration;
 using System.Data;
@@ -8,12 +9,7 @@ namespace comandaXpress_api_net.db
 {
     public class AccesoDatos : IAccesoDatos
     {
-        //private string server = "localhost";
-        //private string database = "comanda";
-        //private string user = "root";
-        //private string password = "";
-        private readonly string _cadenaConexion;
-
+        readonly string _cadenaConexion;
 
         public AccesoDatos(IConfiguration configuration)
         {
@@ -45,6 +41,36 @@ namespace comandaXpress_api_net.db
             {
                 dbConnection.Open();
                 return dbConnection.Execute(query, obj);
+            }
+        }
+
+        public void MultipleInsert<T>(List<T> lista)
+        {
+            using (IDbConnection dbConnection = new MySqlConnection(_cadenaConexion))
+            {
+                dbConnection.Open();
+                using (var transaction = dbConnection.BeginTransaction())
+                {
+                    try
+                    {
+                        foreach (var item in lista)
+                        {
+                            string consulta = "INSERT INTO TuTabla (Columna1, Columna2, ...) VALUES (@Columna1, @Columna2, ...)";
+
+                            // Utiliza el método Execute de Dapper con la transacción
+                            dbConnection.Execute(consulta, registro, transaction);
+                        }
+
+                        // Confirma la transacción
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        // En caso de error, revierte la transacción
+                        transaction.Rollback();
+                        throw; // Puedes manejar o registrar la excepción según tus necesidades
+                    }
+                }
             }
         }
     }

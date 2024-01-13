@@ -1,5 +1,9 @@
+using comandaXpress_api_net;
 using comandaXpress_api_net.db;
+using comandaXpress_api_net.Services;
+using comandaXpress_api_net.Services.IService;
 using System.Configuration;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +17,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IAccesoDatos,  AccesoDatos>();
+builder.Services.AddSingleton<IPedidoService,  PedidoService>();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
+//builder.Services.AddAutoMapper(typeof(MappingConfig));
+builder.Services.AddAutoMapper(typeof(MappingConfig));
 
 var app = builder.Build();
 

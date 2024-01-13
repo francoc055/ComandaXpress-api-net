@@ -72,7 +72,7 @@ namespace comandaXpress_api_net.Controllers
         [HttpDelete("eliminarMesa/{id}")]
         public IActionResult RemoveMesa(int id)
         {
-            int filasAfectadas = _IAccesoDatos.Query("DELETE FROM mesas WHERE mesas.id = @Id", new { Id = id });
+            int filasAfectadas = _IAccesoDatos.Query("UPDATE mesas SET mesas.activo = 0 WHERE mesas.id = @Id", new { Id = id });
 
             if (filasAfectadas == 0)
             {

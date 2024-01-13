@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\PC\\Desktop\\comandaXpress-api-net\\comandaXpress-api-net\\comandaXpress-api-net.csproj": {}
+    "C:\\Users\\Franco\\Desktop\\ComandaXpress-api-net\\comandaXpress-api-net\\comandaXpress-api-net.csproj": {}
   },
   "projects": {
-    "C:\\Users\\PC\\Desktop\\comandaXpress-api-net\\comandaXpress-api-net\\comandaXpress-api-net.csproj": {
+    "C:\\Users\\Franco\\Desktop\\ComandaXpress-api-net\\comandaXpress-api-net\\comandaXpress-api-net.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PC\\Desktop\\comandaXpress-api-net\\comandaXpress-api-net\\comandaXpress-api-net.csproj",
+        "projectUniqueName": "C:\\Users\\Franco\\Desktop\\ComandaXpress-api-net\\comandaXpress-api-net\\comandaXpress-api-net.csproj",
         "projectName": "comandaXpress-api-net",
-        "projectPath": "C:\\Users\\PC\\Desktop\\comandaXpress-api-net\\comandaXpress-api-net\\comandaXpress-api-net.csproj",
-        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PC\\Desktop\\comandaXpress-api-net\\comandaXpress-api-net\\obj\\",
+        "projectPath": "C:\\Users\\Franco\\Desktop\\ComandaXpress-api-net\\comandaXpress-api-net\\comandaXpress-api-net.csproj",
+        "packagesPath": "C:\\Users\\Franco\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Franco\\Desktop\\ComandaXpress-api-net\\comandaXpress-api-net\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Franco\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -41,6 +40,14 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
             "Dapper": {
               "target": "Package",
               "version": "[2.1.28, )"
@@ -73,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }
