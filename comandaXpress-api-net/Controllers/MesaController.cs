@@ -26,14 +26,14 @@ namespace comandaXpress_api_net.Controllers
         {
             IEnumerable<Mesa> mesas = new List<Mesa>();
 
-            mesas = _IAccesoDatos.QueryGetAll<Mesa>("SELECT * FROM mesas");
+            mesas = _IAccesoDatos.GetAll<Mesa>("SELECT * FROM mesas");
             return Json(mesas);
         }
 
         [HttpGet("obtenerMesa/{id}")]
         public IActionResult GetMesaById(int id)
         {
-            Mesa mesa = _IAccesoDatos.QueryGetById<Mesa>("SELECT * FROM mesas WHERE mesas.id = @Id", new { Id = id });
+            Mesa mesa = _IAccesoDatos.GetById<Mesa>("SELECT * FROM mesas WHERE mesas.id = @Id", new { Id = id });
 
             if (mesa is null)
                 return BadRequest();
@@ -45,7 +45,7 @@ namespace comandaXpress_api_net.Controllers
         [HttpPost("agregar")]
         public IActionResult AddMesa()
         {
-            int filasAfectadas = _IAccesoDatos.Query("INSERT INTO MESAS (estado) VALUES ('vacia')");
+            int filasAfectadas = _IAccesoDatos.Insert("INSERT INTO MESAS (estado) VALUES ('vacia')");
 
             if (filasAfectadas == 0)
             {
@@ -59,7 +59,7 @@ namespace comandaXpress_api_net.Controllers
         public IActionResult UpdateMesa(int id, [FromBody] string nuevoEstado)
         {
             
-            int filasAfectadas = _IAccesoDatos.Query("UPDATE mesas SET mesas.estado = @Estado WHERE mesas.id = @Id", new { Estado = nuevoEstado, Id = id});
+            int filasAfectadas = _IAccesoDatos.UpdateRemove("UPDATE mesas SET mesas.estado = @Estado WHERE mesas.id = @Id", new { Estado = nuevoEstado, Id = id});
 
             if (filasAfectadas == 0)
             {
@@ -72,7 +72,7 @@ namespace comandaXpress_api_net.Controllers
         [HttpDelete("eliminarMesa/{id}")]
         public IActionResult RemoveMesa(int id)
         {
-            int filasAfectadas = _IAccesoDatos.Query("UPDATE mesas SET mesas.activo = 0 WHERE mesas.id = @Id", new { Id = id });
+            int filasAfectadas = _IAccesoDatos.UpdateRemove("UPDATE mesas SET mesas.activo = 0 WHERE mesas.id = @Id", new { Id = id });
 
             if (filasAfectadas == 0)
             {
@@ -80,6 +80,18 @@ namespace comandaXpress_api_net.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpGet("MesasVacias")]
+        public IActionResult GetMesasVacias()
+        {
+            IEnumerable<Mesa> mesas = new List<Mesa>();
+
+            mesas = _IAccesoDatos.GetAll<Mesa>("SELECT * FROM mesas WHERE mesas.activo = 1 AND mesas.estado = 'vacia'");
+
+            if (mesas is null) return NotFound();
+            
+            return Ok(mesas);
         }
     }
 }

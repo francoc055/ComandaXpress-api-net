@@ -1,9 +1,9 @@
 ﻿using comandaXpress_api_net.Models;
 using Dapper;
 using Microsoft.Win32;
-using MySql.Data.MySqlClient;
 using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace comandaXpress_api_net.db
 {
@@ -17,58 +17,75 @@ namespace comandaXpress_api_net.db
         }
 
 
-        public IEnumerable<T> QueryGetAll<T>(string query)
+        public IEnumerable<T> GetAll<T>(string query)
         {
-            using (IDbConnection dbConnection = new MySqlConnection(_cadenaConexion))
+            using (IDbConnection dbConnection = new SqlConnection(_cadenaConexion))
             {
                 dbConnection.Open();
                 return dbConnection.Query<T>(query);
             }
         }
 
-        public T QueryGetById<T>(string query, object obj = null)
+        public T GetById<T>(string query, object obj = null)
         {
-            using (IDbConnection dbConnection = new MySqlConnection(_cadenaConexion))
+            using (IDbConnection dbConnection = new SqlConnection(_cadenaConexion))
             {
                 dbConnection.Open();
                 return dbConnection.QueryFirstOrDefault<T>(query, obj);
             }
         }
 
-        public int Query(string query, object obj = null)
+        public int Insert(string query, object obj = null)
         {
-            using (IDbConnection dbConnection = new MySqlConnection(_cadenaConexion))
+            using (IDbConnection dbConnection = new SqlConnection(_cadenaConexion))
+            {
+                dbConnection.Open();
+                return dbConnection.QuerySingle<int>(query, obj);
+            }
+        }
+
+        public int UpdateRemove(string query, object obj = null)
+        {
+            using (IDbConnection dbConnection = new SqlConnection(_cadenaConexion))
             {
                 dbConnection.Open();
                 return dbConnection.Execute(query, obj);
             }
         }
 
-        public void MultipleInsert<T>(List<T> lista)
+
+        public void MultipleInsert(List<PedidoProducto> lista, int idPedido)
         {
-            using (IDbConnection dbConnection = new MySqlConnection(_cadenaConexion))
+            using (IDbConnection dbConnection = new SqlConnection(_cadenaConexion))
             {
                 dbConnection.Open();
                 using (var transaction = dbConnection.BeginTransaction())
                 {
                     try
                     {
-                        foreach (var item in lista)
+                        foreach (PedidoProducto item in lista)
                         {
-                            string consulta = "INSERT INTO TuTabla (Columna1, Columna2, ...) VALUES (@Columna1, @Columna2, ...)";
+                            string consulta = "INSERT INTO pedidos_productos (idPedido, idProducto, cantidad) VALUES (@IdPedido, @IdProducto, @Cantidad)";
 
-                            // Utiliza el método Execute de Dapper con la transacción
-                            dbConnection.Execute(consulta, registro, transaction);
+                            var parametros = new
+                            {
+                                IdPedido = idPedido,
+                                IdProducto = item.IdProducto,
+                                Cantidad = item.Cantidad
+                            };
+
+
+                            dbConnection.Execute(consulta, parametros, transaction);
                         }
 
-                        // Confirma la transacción
+
                         transaction.Commit();
                     }
                     catch (Exception)
                     {
-                        // En caso de error, revierte la transacción
+
                         transaction.Rollback();
-                        throw; // Puedes manejar o registrar la excepción según tus necesidades
+                        throw; 
                     }
                 }
             }

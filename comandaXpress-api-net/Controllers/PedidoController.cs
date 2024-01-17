@@ -5,6 +5,8 @@ using comandaXpress_api_net.Models.Dto;
 using comandaXpress_api_net.Services.IService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
+using Newtonsoft.Json;
 
 namespace comandaXpress_api_net.Controllers
 {
@@ -23,49 +25,39 @@ namespace comandaXpress_api_net.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("pedidos")]
-        public IActionResult GetProductos()
-        {
-            IEnumerable<Pedido> pedidos = new List<Pedido>();
+        //[HttpGet("pedidos")]
+        //public IActionResult GetProductos()
+        //{
+        //    IEnumerable<Pedido> pedidos = new List<Pedido>();
 
-            pedidos = _AccesoDatos.QueryGetAll<Pedido>("SELECT * FROM pedidos WHERE pedidos.id = 1");
-            return Json(pedidos);
-        }
+        //    pedidos = _AccesoDatos.QueryGetAll<Pedido>("SELECT * FROM pedidos WHERE pedidos.id = 1");
+        //    return Json(pedidos);
+        //}
 
 
-        [HttpPost("agregar")] 
-        public IActionResult AddProducto([FromBody] PedidoDto pedidoDto)
-        {
-            Pedido pedido = new Pedido();
-            pedido = _mapper.Map<Pedido>(pedidoDto);
-            pedido.IdMesa = pedidoDto.IdMesa;
-            pedido.CodigoCliente = _PedidoService.GenerarCodigoCliente();
-            pedido.FechaAlta = DateTime.Now;
+        //[HttpPost("agregar")] 
+        //public IActionResult AddProducto([FromBody] dynamic data)
+        //{
 
-            int filasAfectadas = _AccesoDatos.Query("INSERT INTO pedidos (idMesa, codigoCliente, fechaAlta) VALUES (@IdMesa, @CodigoCliente, @FechaAlta)", pedido);
+        //    PedidoProducto modelo = JsonConvert.DeserializeObject<PedidoProducto>(data.ToString());
 
-            if (filasAfectadas == 0)
-            {
-                return BadRequest();
-            }
-
-            return Ok();
-        }
+        //    return Ok(modelo);
+        //}
 
 
 
-        [HttpDelete("eliminarPedido/{id}")]
-        public IActionResult RemoveMesa(int id)
-        {
-            int filasAfectadas = _AccesoDatos.Query("UPDATE pedidos SET pedidos.activo = 0 WHERE pedidos.id = @Id", new { Id = id });
+        //[HttpDelete("eliminarPedido/{id}")]
+        //public IActionResult RemoveMesa(int id)
+        //{
+        //    int filasAfectadas = _AccesoDatos.Query("UPDATE pedidos SET pedidos.activo = 0 WHERE pedidos.id = @Id", new { Id = id });
 
-            if (filasAfectadas == 0)
-            {
-                return BadRequest();
-            }
+        //    if (filasAfectadas == 0)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
 
 

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Franco\\Desktop\\ComandaXpress-api-net\\comandaXpress-api-net\\comandaXpress-api-net.csproj": {}
+    "C:\\Users\\PC\\Desktop\\ComandaXpress-api-net\\comandaXpress-api-net\\comandaXpress-api-net.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Franco\\Desktop\\ComandaXpress-api-net\\comandaXpress-api-net\\comandaXpress-api-net.csproj": {
+    "C:\\Users\\PC\\Desktop\\ComandaXpress-api-net\\comandaXpress-api-net\\comandaXpress-api-net.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Franco\\Desktop\\ComandaXpress-api-net\\comandaXpress-api-net\\comandaXpress-api-net.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Desktop\\ComandaXpress-api-net\\comandaXpress-api-net\\comandaXpress-api-net.csproj",
         "projectName": "comandaXpress-api-net",
-        "projectPath": "C:\\Users\\Franco\\Desktop\\ComandaXpress-api-net\\comandaXpress-api-net\\comandaXpress-api-net.csproj",
-        "packagesPath": "C:\\Users\\Franco\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Franco\\Desktop\\ComandaXpress-api-net\\comandaXpress-api-net\\obj\\",
+        "projectPath": "C:\\Users\\PC\\Desktop\\ComandaXpress-api-net\\comandaXpress-api-net\\comandaXpress-api-net.csproj",
+        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PC\\Desktop\\ComandaXpress-api-net\\comandaXpress-api-net\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Franco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -56,9 +57,17 @@
               "target": "Package",
               "version": "[8.2.0, )"
             },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.6, )"
             }
           },
           "imports": [
@@ -80,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     }
