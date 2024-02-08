@@ -40,7 +40,7 @@ namespace comandaXpress_api_net.db
             using (IDbConnection dbConnection = new SqlConnection(_cadenaConexion))
             {
                 dbConnection.Open();
-                return dbConnection.QuerySingle<int>(query, obj);
+                return dbConnection.Execute(query, obj);
             }
         }
 

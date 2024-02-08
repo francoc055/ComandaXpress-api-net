@@ -1,5 +1,6 @@
 ﻿using comandaXpress_api_net.db;
 using comandaXpress_api_net.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,7 @@ namespace comandaXpress_api_net.Controllers
 
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet("productos")]
         public IActionResult GetProductos()
         {
@@ -27,6 +29,7 @@ namespace comandaXpress_api_net.Controllers
             return Ok(productos);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet("obtenerProducto/{id}")]
         public IActionResult GetProductoById(int id)
         {
@@ -38,6 +41,7 @@ namespace comandaXpress_api_net.Controllers
             return Ok(producto);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost("agregar")]
         public IActionResult AddProducto([FromBody] Producto producto)
         {
@@ -51,6 +55,7 @@ namespace comandaXpress_api_net.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPut("actualizarProducto/{id}")]
         public IActionResult UpdateMesa(int id, [FromBody] Producto producto)
         {
@@ -65,6 +70,8 @@ namespace comandaXpress_api_net.Controllers
             return Ok();
         }
 
+
+        [Authorize(Roles = "admin")]
         [HttpDelete("eliminarProducto/{id}")]
         public IActionResult RemoveMesa(int id)
         {

@@ -1,9 +1,11 @@
 ﻿using comandaXpress_api_net.db;
 using comandaXpress_api_net.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using System.Collections.Generic;
+using System.Data;
 using System.Security.Policy;
 
 namespace comandaXpress_api_net.Controllers
@@ -21,13 +23,14 @@ namespace comandaXpress_api_net.Controllers
 
         }
 
+        [Authorize(Roles = "mozo")]
         [HttpGet("mesas")]
         public IActionResult GetMesas()
         {
             IEnumerable<Mesa> mesas = new List<Mesa>();
 
-            mesas = _IAccesoDatos.GetAll<Mesa>("SELECT * FROM mesas");
-            return Json(mesas);
+            mesas = _IAccesoDatos.GetAll<Mesa>("SELECT * FROM mesas WHERE mesas.activo = 1");
+            return Ok(mesas);
         }
 
         [HttpGet("obtenerMesa/{id}")]
@@ -41,7 +44,7 @@ namespace comandaXpress_api_net.Controllers
             return Ok(mesa);
         }
 
-
+        [Authorize(Roles = "mozo")]
         [HttpPost("agregar")]
         public IActionResult AddMesa()
         {
@@ -55,6 +58,7 @@ namespace comandaXpress_api_net.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "mozo")]
         [HttpPut("actualizarEstado/{id}")]
         public IActionResult UpdateMesa(int id, [FromBody] string nuevoEstado)
         {
@@ -66,9 +70,11 @@ namespace comandaXpress_api_net.Controllers
                 return BadRequest();
             }
 
-            return Ok();
+            return NoContent();
         }
 
+
+        [Authorize(Roles = "mozo")]
         [HttpDelete("eliminarMesa/{id}")]
         public IActionResult RemoveMesa(int id)
         {
@@ -82,6 +88,8 @@ namespace comandaXpress_api_net.Controllers
             return Ok();
         }
 
+
+        [Authorize(Roles = "mozo")]
         [HttpGet("MesasVacias")]
         public IActionResult GetMesasVacias()
         {
